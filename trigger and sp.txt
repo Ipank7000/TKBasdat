@@ -1,0 +1,15 @@
+CREATE TRIGGER jumlah_pelamar
+AFTER INSERT OR UPDATE OR DELETE
+ON lamaran
+FOR EACH ROW
+EXECUTE PROCEDURE jumlah_pelamar();
+
+CREATE OR REPLACE FUNCTION jumlah_pelamar()
+RETURNS "trigger" AS
+'
+BEGIN 
+UPDATE lowongan SET jumlah_pelamar = jumlah_pelamar + 1;
+RETURN jumlah_pelamar;
+END;
+'
+LANGUAGE 'plpgsql' VOLATILE;
